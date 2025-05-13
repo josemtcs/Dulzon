@@ -9,8 +9,7 @@ const port = 4000;
 app.use(cors());
 app.use(express.json());
 
-
-sequelize.sync() // Cambia a true si deseas reiniciar la base de datos
+sequelize.sync( alter= false) // Cambia a true si deseas reiniciar la base de datos
   .then(() => {
     console.log('Base de datos conectada y sincronizada ');
 })
@@ -23,6 +22,8 @@ sequelize.sync() // Cambia a true si deseas reiniciar la base de datos
 app.use('/api/dulces', require('./router/dulces.router'));
 app.use('/api/categorias', require('./router/categoria.router'));
 app.use('/api/inventario', require('./router/inventario.router'));
+
+
 
 //Ruta principal
 app.get('/', (req, res) => {
