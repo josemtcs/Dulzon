@@ -1,0 +1,82 @@
+.dulces-container {
+  
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee, #fcd5ce);
+}
+
+.card-dulce {
+  background-color: #f7f1f3;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 16px;
+  width: 220px;
+  text-align: center;
+  margin: 10px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-dulce h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: normal; /* ✅ Permite varias líneas */
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.card-dulce p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.card-dulce input {
+  width: 60px;
+  padding: 6px;
+  margin: 6px auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.card-dulce button {
+  background-color: #198754;
+  color: white;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  border: none;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.card-dulce button:hover {
+  background-color: #157347;
+}
+
+.catalogo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+
+/* Animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
