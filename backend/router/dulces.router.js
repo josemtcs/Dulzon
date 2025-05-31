@@ -1,20 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const DulceController = require('../controllers/dulces.controller');
+const { autenticarToken, soloAdmin } = require('../middleware/auth');
 
-// Obtener todos los dulces
+// Rutas públicas
 router.get('/', DulceController.obtenerDulces);
-
-// Crear un nuevo dulce
-router.post('/', DulceController.crearDulce);
-
-// Obtener un dulce por ID
 router.get('/:id', DulceController.obtenerDulcePorId);
 
-// Actualizar dulce
-router.put('/:id', DulceController.actualizarDulce);
-
-// Eliminar dulce
-router.delete('/:id', DulceController.eliminarDulce);
+// Rutas de administrador (requieren autenticación y rol admin)
+router.post('/', autenticarToken, soloAdmin, DulceController.crearDulce);
+router.put('/:id', autenticarToken, soloAdmin, DulceController.actualizarDulce);
+router.delete('/:id', autenticarToken, soloAdmin, DulceController.eliminarDulce);
 
 module.exports = router;

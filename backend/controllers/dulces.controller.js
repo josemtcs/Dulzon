@@ -29,7 +29,8 @@ exports.crearDulce = async (req, res) => {
     const nuevoDulce = await Dulce.create(req.body);
     res.status(201).json(nuevoDulce);
   } catch (error) {
-    res.status(400).json({ message: 'Error al crear el dulce', error });
+    console.error('Error al crear dulce:', error);
+    res.status(400).json({ message: 'Error al crear dulce', error });
   }
 };
 

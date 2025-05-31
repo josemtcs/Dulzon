@@ -11,8 +11,8 @@ const Compra= require('./compra')(sequelize, DataTypes);
 const DetalleCompra= require('./detalleCompra')(sequelize, DataTypes);
 
 
-Rol.hasMany(Usuario, { foreignKey: 'rolId' });
-Usuario.belongsTo(Rol, { foreignKey: 'rolId' });
+Rol.hasMany(Usuario, { foreignKey: 'rolId', as: 'usuarios' });
+Usuario.belongsTo(Rol, { foreignKey: 'rolId', as: 'rol' });
 
 Usuario.hasMany(Compra, { foreignKey: 'usuarioId' });
 Compra.belongsTo(Usuario, { foreignKey: 'usuarioId' });
@@ -20,7 +20,7 @@ Compra.belongsTo(Usuario, { foreignKey: 'usuarioId' });
 Categoria.hasMany(Dulce, { foreignKey: 'categoriaId' });
 Dulce.belongsTo(Categoria, { foreignKey: 'categoriaId' });
 
-Dulce.hasMany(Inventario, { foreignKey: 'dulceId' });
+Dulce.hasOne(Inventario, { foreignKey: 'dulceId' });
 Inventario.belongsTo(Dulce, { foreignKey: 'dulceId' });
 
 Compra.hasMany(DetalleCompra, { foreignKey: 'compraId' });

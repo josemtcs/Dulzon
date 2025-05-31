@@ -8,13 +8,10 @@ router.get('/', InventarioController.obtenerInventario);
 // Crear inventario
 router.post('/', InventarioController.crearInventario);
 
-// Obtener un dulce por ID
-router.get('/:id', InventarioController.obtenerInventarioid);
 
-// Actualizar dulce
-router.put('/:id', InventarioController.actualizarInventario);
+router.put('/:id', InventarioController.actualizarCantidad);
 
-// Eliminar dulce
-router.delete('/:id', InventarioController.eliminarinventario);
+// Eliminar dulce por dulceid
+router.delete('dulce/:id', InventarioController.eliminarPorDulceId);
 
 module.exports = router;

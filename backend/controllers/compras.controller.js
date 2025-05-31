@@ -1,62 +1,42 @@
-const { Categoria } = require('../models');
+const { Compra, DetalleCompra, Inventario, Rol } = require('../models');
 
-// Obtener todos los dulces
-exports.obtenerCategoria = async (req, res) => {
-  try {
-    const categorias = await Categoria.findAll();
-    res.json(categorias);
-  } catch (error) {
-    res.status(500).json({ message: 'Error al obtener las categorias', error });
-  }
-};
+exports.crearCompra = async (req, res) => {
+  const { rolId, items } = req.body;
 
-// Obtener una sola cateogoria
-exports.obtenerCategoriaPorId = async (req, res) => {
   try {
-    const categoria = await Dulce.findByPk(req.params.id);
-    if (!categoria) {
-      return res.status(404).json({ message: 'Categoria no encontrada' });
+  
+    const rol = await Rol.findByPk(rolId);
+    if (!rol) {
+      return res.status(404).json({ message: 'Rol no encontrado' });
     }
-    res.json(categoria);
-  } catch (error) {
-    res.status(500).json({ message: 'Error al obtener el dulce', error });
-  }
-};
 
-// Crear un nuevo dulce
-exports.crearDulce = async (req, res) => {
-  try {
-    const nuevoDulce = await Dulce.create(req.body);
-    res.status(201).json(nuevoDulce);
-  } catch (error) {
-    res.status(400).json({ message: 'Error al crear el dulce', error });
-  }
-};
+    const nuevaCompra = await Compra.create({ rolId });
 
-// Actualizar un dulce existente
-exports.actualizarDulce = async (req, res) => {
-  try {
-    const dulce = await Dulce.findByPk(req.params.id);
-    if (!dulce) {
-      return res.status(404).json({ message: 'Dulce no encontrado' });
+    for (const item of items) {
+      await DetalleCompra.create({
+        compraId: nuevaCompra.id,
+        dulceId: item.dulceId,
+        cantidad: item.cantidad,
+        precioUnitario: item.precioUnitario
+      });
+
+    
+      const inventario = await Inventario.findOne({ where: { dulceId: item.dulceId } });
+      if (!inventario || inventario.cantidad < item.cantidad) {
+        return res.status(400).json({ message: 'Inventario insuficiente' });
+      }
+
+      inventario.cantidad -= item.cantidad;
+      await inventario.save();
     }
-    await dulce.update(req.body);
-    res.json(dulce);
-  } catch (error) {
-    res.status(400).json({ message: 'Error al actualizar el dulce', error });
-  }
-};
 
-// Eliminar un dulce
-exports.eliminarDulce = async (req, res) => {
-  try {
-    const dulce = await Dulce.findByPk(req.params.id);
-    if (!dulce) {
-      return res.status(404).json({ message: 'Dulce no encontrado' });
-    }
-    await dulce.destroy();
-    res.json({ message: 'Dulce eliminado correctamente' });
+    res.status(200).json({
+      message: 'Compra realizada con éxito',
+      compra: nuevaCompra,
+      detalles: items
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar el dulce', error });
+    console.error('Error en la compra:', error);
+    res.status(500).json({ message: 'Error al procesar la compra' });
   }
 };
