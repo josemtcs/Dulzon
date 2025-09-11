@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function NavbarAdmin() {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const handleLogout = () => {
   sessionStorage.removeItem('token');
   window.location.href = "/login"; // Fuerza redirección al login

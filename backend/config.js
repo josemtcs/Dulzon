@@ -1,17 +1,10 @@
 const {Sequelize} = require('sequelize');
 
-const sequelize = new Sequelize('DulcesDB', 'sa', '123456', {
+const sequelize = new Sequelize('dulcesbd', 'root', '123456', {
     host: 'localhost',
-    dialect: 'mssql',
-    port: 1433,
-    dialectModule: require('tedious'),
+    dialect: 'mysql',
     logging: false,
-    dialectOptions: {
-    options: {
-      encrypt: false,
-      trustServerCertificate: true
-    }
-  },
+    
 });
 
 

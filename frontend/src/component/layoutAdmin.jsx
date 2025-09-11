@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './NavbarAdmin';
-import '../assets/css/Layout.css'; // Assuming you have some CSS for layout
+import '../assets/css/Layout.css'; 
 
 const LayoutAdmin = ({ children }) => {
   return (
