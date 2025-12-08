@@ -39,12 +39,12 @@ app.get('/', (req, res) => {
   res.send('API de Dulcería funcionando');
 });
 
+module.exports = app;
 
-
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
-  
- 
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Servidor corriendo en http://localhost:${port}`);
+  });
+}
 
 
